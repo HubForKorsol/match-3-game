@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <link rel="stylesheet" href="css/style.css" />
+    <script type="text/javascript" src="js/phaser.js"></script>
+    <script type="text/javascript" src="js/boot.js"></script>
+    <script type="text/javascript" src="js/preload.js"></script>
+    <script type="text/javascript" src="js/startMenu.js"></script>
+    <script type="text/javascript" src="js/gameBoard.js"></script>
+    <script type="text/javascript" src="js/gameOver.js"></script>
+    <link
+      href="https://fonts.googleapis.com/css?family=Fredoka+One&display=swap"
+      rel="stylesheet"
+    />
+    <title>Game</title>
+  </head>
+  <body>
+    <div id="phaser-game"></div>
+    <script type="text/javascript">
+      (function() {
+        var game = new Phaser.Game(1280, 960, Phaser.CANVAS);
+
+        game.state.add("Boot", Game.Boot);
+        game.state.add("Preload", Game.Preload);
+        game.state.add("StartMenu", Game.StartMenu);
+        game.state.add("GameBoard", Game.GameBoard);
+        game.state.add("GameOver", Game.GameOver);
+
+        game.state.start("Boot");
+      })();
+    </script>
+  </body>
+</html>
