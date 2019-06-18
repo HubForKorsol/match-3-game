@@ -45,7 +45,7 @@ Game.GameBoard.prototype = {
       fill: "#d46866",
       align: "center"
     });
-    textScore = this.game.add.text(850, 70, score, {
+    textScore = this.game.add.text(850, 65, score, {
       font: "64px Fredoka One, cursive",
       fill: "#eaeaea",
       align: "center"

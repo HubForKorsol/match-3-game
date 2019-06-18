@@ -27,7 +27,7 @@ Game.GameOver.prototype = {
       .to({ x: 375, y: 350 }, 500, Phaser.Easing.Linear.None, true);
     this.game.add
       .tween(textScore)
-      .to({ x: 475, y: 410 }, 500, Phaser.Easing.Linear.None, true);
+      .to({ x: 475, y: 405 }, 500, Phaser.Easing.Linear.None, true);
   },
   update: function() {
     if (btnPlay.clicked === true) {
