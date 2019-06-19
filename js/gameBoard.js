@@ -23,7 +23,7 @@ Game.GameBoard = function(game) {};
 Game.GameBoard.prototype = {
   create: function() {
     fxKill = game.add.audio("fx-kill", 0.3);
-
+    fxSelect = game.add.audio("select-1", 0.3)
     setTime = 61;
     score = 0;
     gameStart = 10;
@@ -32,7 +32,7 @@ Game.GameBoard.prototype = {
 
     spawnBoard();
 
-    scoreSprite = this.game.add.sprite(750, 10, "score");
+    scoreSprite = this.game.add.sprite(450, 10, "score");
     this.game.time.events.loop(Phaser.Timer.SECOND, gameBegin, this);
     selectedGemStartPos = { x: 0, y: 0 };
 
@@ -45,11 +45,12 @@ Game.GameBoard.prototype = {
       fill: "#d46866",
       align: "center"
     });
-    textScore = this.game.add.text(850, 65, score, {
+    textScore = this.game.add.text(550, 65, score, {
       font: "64px Fredoka One, cursive",
       fill: "#eaeaea",
       align: "center"
     });
+    btnSfx = this.game.add.button(1020,20, 'btn-sfx', sfxTogle, this, 2,1,0);
     loadShadow = this.game.add.sprite(0, 0, "load-shadow");
     textBeginGame = this.game.add.text(600, 1100, gameStart, {
       font: "120px Fredoka One, cursive",
@@ -76,6 +77,14 @@ Game.GameBoard.prototype = {
     }
   }
 };
+
+function sfxTogle(){
+  if (!this.game.sound.mute){
+    this.game.sound.mute = true;
+  }else{
+    this.game.sound.mute = false;    
+  }
+}
 
 function gameBegin() {
   if (gameStart > 0) {
@@ -114,6 +123,7 @@ function spawnBoard() {
       gem.inputEnabled = true;
       gem.events.onInputDown.add(selectGem, this);
       gem.events.onInputUp.add(releaseGem, this);
+      gem.animations.add('destroy');
       randomizeGemColor(gem);
       setGemPos(gem, i, j);
       gem.kill();
@@ -150,6 +160,7 @@ function releaseGem() {
     ) {
       if (selectedGemTween !== null) {
         game.tweens.remove(selectedGemTween);
+        
       }
 
       selectedGemTween = tweenGemPos(
@@ -169,7 +180,6 @@ function releaseGem() {
   }
 
   removeKilledGems();
-
   var dropGemDuration = dropGems();
 
   game.time.events.add(dropGemDuration * 100, refillBoard);
@@ -180,6 +190,7 @@ function releaseGem() {
   tempShiftedGem = null;
 }
 function slideGem(pointer, x, y) {
+ 
   if (gameStart === 0) {
     if (selectedGem && pointer.isDown) {
       var cursorGemPosX = getGemPosX(x);
@@ -308,6 +319,7 @@ function countSameColorGems(startGem, moveX, moveY) {
 }
 
 function swapGemPosition(gem1, gem2) {
+  fxSelect.play();
   var tempPosX = gem1.posX;
   var tempPosY = gem1.posY;
   setGemPos(gem1, gem2.posX, gem2.posY);
@@ -359,10 +371,20 @@ function killGemRange(fromX, fromY, toX, toY) {
   for (var i = fromX; i <= toX; i++) {
     for (var j = fromY; j <= toY; j++) {
       var gem = getGem(i, j);
-      gem.kill();
+      //animateKillGems(gem)
+      gem.kill();        
     }
   }
 }
+
+/*function animateKillGems(gem){
+  
+console.log(gem.posX);
+var dieMFK;
+dieMFK 
+
+  
+}*/
 
 function removeKilledGems() {
   gems.forEach(function(gem) {
@@ -384,7 +406,7 @@ function tweenGemPos(gem, newPosX, newPosY, durationMultiplier) {
       x: newPosX * GEM_SIZE_SPACED + BOARD_START_POS_X,
       y: newPosY * GEM_SIZE_SPACED + BOARD_START_POS_Y
     },
-    100 * durationMultiplier,
+    150 * durationMultiplier,
     Phaser.Easing.Linear.None,
     true
   );
@@ -439,7 +461,7 @@ function refillBoard() {
     maxGemsMissingFromCol = Math.max(maxGemsMissingFromCol, gemsMissingFromCol);
   }
 
-  game.time.events.add(maxGemsMissingFromCol * 2 * 100, boardRefilled);
+  game.time.events.add(maxGemsMissingFromCol * 2 * 150, boardRefilled);
 }
 
 function boardRefilled() {
@@ -458,7 +480,7 @@ function boardRefilled() {
   if (canKill) {
     removeKilledGems();
     var dropGemDuration = dropGems();
-    game.time.events.add(dropGemDuration * 100, refillBoard);
+    game.time.events.add(dropGemDuration * 150, refillBoard);
     allowInput = false;
   } else {
     allowInput = true;

@@ -1,4 +1,4 @@
-//var Sfx;
+var Sfx;
 var game;
 Game.StartMenu = function(game) {};
 
@@ -19,9 +19,9 @@ Game.StartMenu.prototype = {
       1,
       0
     );
-    //btnSfx = this.game.add.button(1050,50, 'btn-sfx', sfxTogle, this, 2,1,0);
-    //Sfx = game.add.audio('fx-background', 0.2, true);
-
+    btnSfx = this.game.add.button(1020,20, 'btn-sfx', sfxTogle, this, 2,1,0);
+    Sfx = game.add.audio('fx-background', 0.4, true);
+    Sfx.play();
     this.game.add
       .tween(donut)
       .to({ x: 349, y: 328 }, 500, Phaser.Easing.Linear.None, true);
@@ -49,4 +49,12 @@ Game.StartMenu.prototype = {
 
 function moveToGameBoard() {
   btnPlay.clicked = true;
+}
+
+function sfxTogle(){
+  if (!this.game.sound.mute){
+    this.game.sound.mute = true;
+  }else{
+    this.game.sound.mute = false;    
+  }
 }
