@@ -21,7 +21,6 @@ Game.StartMenu.prototype = {
     );
     btnSfx = this.game.add.button(1020,20, 'btn-sfx', sfxTogle, this, 2,1,0);
     tutorialBtn = this.game.add.button(1020,200, "tutorial-btn", moveToTutorial, this, 2,1,0);
-    Sfx = game.add.audio('fx-background', 0.4, true);
     Sfx.play();
     this.game.add
       .tween(donut)
