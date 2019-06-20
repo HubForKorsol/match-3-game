@@ -1,3 +1,4 @@
+var Sfx;
 Game.Preload = function(game) {};
 
 Game.Preload.prototype = {
@@ -14,7 +15,6 @@ Game.Preload.prototype = {
     this.load.image("tutorial-img-1", "img/tutorial-img-1.png");
     this.load.image("tutorial-img-2", "img/tutorial-img-2.png");
     this.load.image("btn-back", "img/btn-back.png");
-    this.load.spritesheet("particle-1", "img/particle-1.png", 72, 72);
     this.load.spritesheet("gems", "img/gem-sprite-1.png", 100, 100);
     this.load.image("score", "img/bg-score.png");
     this.load.audio("fx-background", "audio/background.mp3");
@@ -22,6 +22,8 @@ Game.Preload.prototype = {
     this.load.audio("select-1", "audio/select-1.mp3");
   },
   create: function() {
+    Sfx = this.game.add.audio('fx-background', 0.4, true);
     this.game.state.start("StartMenu");
+    
   }
 };

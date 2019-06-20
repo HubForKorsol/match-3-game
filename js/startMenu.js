@@ -2,6 +2,10 @@ var game;
 var Sfx;
 Game.StartMenu = function(game) {};
 Game.StartMenu.prototype = {
+
+  preload: function(){
+    Sfx = this.game.add.audio('fx-background', 0.4, true);
+  },
   create: function() {
     game = this.game;
     background = this.game.add.sprite(0, 0, "background");
@@ -20,7 +24,7 @@ Game.StartMenu.prototype = {
     );
     btnSfx = this.game.add.button(1020,20, 'btn-sfx', sfxTogle, this, 2,1,0);
     tutorialBtn = this.game.add.button(1020,200, "tutorial-btn", moveToTutorial, this, 2,1,0);
-    Sfx = game.add.audio('fx-background', 0.4, true);
+    
     Sfx.play();
     this.game.add
       .tween(donut)
