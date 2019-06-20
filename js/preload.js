@@ -10,6 +10,10 @@ Game.Preload.prototype = {
     this.load.image("btn-sfx", "img/btn-sfx.png");
     this.load.image("time-up", "img/text-timeup.png");
     this.load.image("load-shadow", "img/load-shadow.png");
+    this.load.image("tutorial-btn", "img/btn-tutorial.png");
+    this.load.image("tutorial-img-1", "img/tutorial-img-1.png");
+    this.load.image("tutorial-img-2", "img/tutorial-img-2.png");
+    this.load.image("btn-back", "img/btn-back.png");
     this.load.spritesheet("particle-1", "img/particle-1.png", 72, 72);
     this.load.spritesheet("gems", "img/gem-sprite-1.png", 100, 100);
     this.load.image("score", "img/bg-score.png");
