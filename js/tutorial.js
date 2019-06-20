@@ -6,6 +6,7 @@ Game.Tutorial.prototype = {
     game = this.game;
     background = this.game.add.sprite(0, 0, "background");
     btnSfx = this.game.add.button(1020,20, 'btn-sfx', sfxTogle, this, 2,1,0);
+    
     textTutorialTitle = this.game.add.text(300, -200, "Tutorial", {
         font: "160px Fredoka One, cursive",
         fill: "#d46866",
@@ -59,7 +60,10 @@ Game.Tutorial.prototype = {
       tutorialImgTwo.y -= 25;
       btnBack.y += 25;
       setTimeout(() => {
+        Sfx.destroy();
+        
          this.game.state.start("StartMenu");
+
       }, 800);
     }
   }
