@@ -73,7 +73,7 @@ Game.GameBoard.prototype = {
       textTime.y -= 10;
       setTimeout(() => {
         this.game.state.start("GameOver");
-      }, 1500);
+      }, 200);
     }
   }
 };
@@ -133,8 +133,8 @@ function spawnBoard() {
   removeKilledGems();
 
   var dropGemDuration = dropGems();
-
-  game.time.events.add(dropGemDuration * 100, refillBoard);
+  
+  game.time.events.add(dropGemDuration * 200, refillBoard);
 
   allowInput = false;
 
@@ -160,9 +160,7 @@ function releaseGem() {
     ) {
       if (selectedGemTween !== null) {
         game.tweens.remove(selectedGemTween);
-        
       }
-
       selectedGemTween = tweenGemPos(
         gem,
         selectedGemStartPos.x,
@@ -170,7 +168,7 @@ function releaseGem() {
       );
 
       if (tempShiftedGem !== null) {
-        tweenGemPos(tempShiftedGem, gem.posX, gem.posY);
+          tweenGemPos(tempShiftedGem, gem.posX, gem.posY);                
       }
 
       swapGemPosition(gem, tempShiftedGem);
@@ -182,7 +180,7 @@ function releaseGem() {
   removeKilledGems();
   var dropGemDuration = dropGems();
 
-  game.time.events.add(dropGemDuration * 100, refillBoard);
+  game.time.events.add(dropGemDuration * 200, refillBoard);
 
   allowInput = false;
 
@@ -371,20 +369,29 @@ function killGemRange(fromX, fromY, toX, toY) {
   for (var i = fromX; i <= toX; i++) {
     for (var j = fromY; j <= toY; j++) {
       var gem = getGem(i, j);
-      //animateKillGems(gem)
+      animateKillGems(gem);
       gem.kill();        
     }
   }
 }
 
-/*function animateKillGems(gem){
-  
-console.log(gem.posX);
-var dieMFK;
-dieMFK 
-
-  
-}*/
+function animateKillGems(gem){
+var particle;
+var particleType = ["particle-1",
+                    "particle-2",
+                    "particle-3",
+                    "particle-4",
+                    "particle-5",
+                    "particle-6",
+                   ];
+  particle = game.add
+  .sprite((gem.posX*GEM_SIZE_SPACED)+BOARD_START_POS_X+14,
+          (gem.posY*GEM_SIZE_SPACED)+BOARD_START_POS_Y+14,
+          particleType[gem.frame]);   
+  setTimeout(() => {
+    particle.destroy();
+  }, 100);  
+}
 
 function removeKilledGems() {
   gems.forEach(function(gem) {
@@ -395,21 +402,23 @@ function removeKilledGems() {
 }
 
 function tweenGemPos(gem, newPosX, newPosY, durationMultiplier) {
-  if (
-    durationMultiplier === null ||
-    typeof durationMultiplier === "undefined"
-  ) {
-    durationMultiplier = 1;
-  }
-  return game.add.tween(gem).to(
-    {
-      x: newPosX * GEM_SIZE_SPACED + BOARD_START_POS_X,
-      y: newPosY * GEM_SIZE_SPACED + BOARD_START_POS_Y
-    },
-    150 * durationMultiplier,
-    Phaser.Easing.Linear.None,
-    true
-  );
+    if (
+      durationMultiplier === null ||
+      typeof durationMultiplier === "undefined"
+    ) {
+      durationMultiplier = 1;
+    }
+    console.log(durationMultiplier*200);
+    return game.add.tween(gem).to(
+      {
+        x: newPosX * GEM_SIZE_SPACED + BOARD_START_POS_X,
+        y: newPosY * GEM_SIZE_SPACED + BOARD_START_POS_Y
+      },
+      200 * durationMultiplier,
+      Phaser.Easing.Linear.None,
+      true
+    );  
+      
 }
 
 function dropGems() {
@@ -461,7 +470,7 @@ function refillBoard() {
     maxGemsMissingFromCol = Math.max(maxGemsMissingFromCol, gemsMissingFromCol);
   }
 
-  game.time.events.add(maxGemsMissingFromCol * 2 * 150, boardRefilled);
+  game.time.events.add(maxGemsMissingFromCol * 2 * 200, boardRefilled);
 }
 
 function boardRefilled() {
@@ -480,7 +489,7 @@ function boardRefilled() {
   if (canKill) {
     removeKilledGems();
     var dropGemDuration = dropGems();
-    game.time.events.add(dropGemDuration * 150, refillBoard);
+    game.time.events.add(dropGemDuration * 200, refillBoard);
     allowInput = false;
   } else {
     allowInput = true;

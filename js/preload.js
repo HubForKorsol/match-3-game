@@ -1,4 +1,4 @@
-var Sfx;
+
 Game.Preload = function(game) {};
 
 Game.Preload.prototype = {
@@ -14,6 +14,12 @@ Game.Preload.prototype = {
     this.load.image("tutorial-btn", "img/btn-tutorial.png");
     this.load.image("tutorial-img-1", "img/tutorial-img-1.png");
     this.load.image("tutorial-img-2", "img/tutorial-img-2.png");
+    this.load.image("particle-1", "img/particle-1.png");
+    this.load.image("particle-2", "img/particle-2.png");
+    this.load.image("particle-3", "img/particle-3.png");
+    this.load.image("particle-4", "img/particle-4.png");
+    this.load.image("particle-5", "img/particle-5.png");
+    this.load.image("particle-6", "img/particle-6.png");
     this.load.image("btn-back", "img/btn-back.png");
     this.load.spritesheet("gems", "img/gem-sprite-1.png", 100, 100);
     this.load.image("score", "img/bg-score.png");
@@ -22,7 +28,6 @@ Game.Preload.prototype = {
     this.load.audio("select-1", "audio/select-1.mp3");
   },
   create: function() {
-    Sfx = this.game.add.audio('fx-background', 0.4, true);
     this.game.state.start("StartMenu");
     
   }
